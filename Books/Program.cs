@@ -12,6 +12,8 @@ using Microsoft.Extensions.FileProviders;
 using Serilog;
 using Books.Middlewares;
 using Microsoft.Net.Http.Headers;
+using Books.Service.GenreService;
+using Books.Reposistories.GenreRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -112,11 +114,13 @@ builder.Services.AddScoped<IImageService, ImageService>();
 builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IDifficultiesService, DifficultiesService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
 
 ///Repositories
 builder.Services.AddScoped<IAuthorRepositorycs, PostGresAuthorRepository>();
 builder.Services.AddScoped<IBookRepository, PostGresBookRepository>();
 builder.Services.AddScoped<IDifficultiesRepository, PostGresDifficultiesRespository>();
+builder.Services.AddScoped<IGenreRepository, PostGresGenreRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenJwtRepository>();
 builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
 

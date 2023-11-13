@@ -41,6 +41,8 @@ namespace Books.Controllers
             if(author == null) return NotFound();
 
             logger.LogInformation($"----- Get All Running Finished ----- : \n {JsonSerializer.Serialize(author)}" );
+
+            Console.WriteLine($"here ====================> the author: {author}");
             //Return DTOs
             return Ok(author);
 
@@ -88,11 +90,11 @@ namespace Books.Controllers
 
             if(authorDtoRequest == null) return NotFound();
 
-            var author = authorService.CreateAnAuthor(authorDtoRequest);
+            var author = await authorService.CreateAnAuthor(authorDtoRequest);
 
-            if (author == null) return null;
-           
-            return CreatedAtAction(nameof(GetAnAuthorById), new { id = author.Id }, author);
+            if (author == null) return NotFound();
+
+            return Ok(author);
 
         }
 
@@ -106,7 +108,7 @@ namespace Books.Controllers
 
             if (!id.Equals("") || !updateDto.Equals(null)) return NotFound();
 
-            var author = authorService.UpdateAnAuthor(id, updateDto);
+            var author = await authorService.UpdateAnAuthor(id, updateDto);
 
             if (author == null) return NotFound();
 
@@ -123,7 +125,7 @@ namespace Books.Controllers
         {
             if (!id.Equals("") || !updateDto.Equals(null)) return NotFound();
 
-            var author = authorService.DeleteAnAuthor(id, updateDto);
+            var author = await authorService.DeleteAnAuthor(id, updateDto);
 
             if (author == null) return NotFound();
 

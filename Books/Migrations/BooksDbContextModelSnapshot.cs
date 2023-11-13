@@ -112,13 +112,24 @@ namespace Books.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("Pagecount")
+                        .HasColumnType("integer");
+
+                    b.Property<Guid>("ProgressId")
+                        .HasColumnType("uuid");
+
                     b.Property<Guid>("PublisherId")
                         .HasColumnType("uuid");
 
+                    b.Property<int>("WordCount")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("WordsPerPage")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("AuthorId")
-                        .IsUnique();
+                    b.HasIndex("AuthorId");
 
                     b.HasIndex("DifficultyId")
                         .IsUnique();
@@ -126,8 +137,7 @@ namespace Books.Migrations
                     b.HasIndex("GenreId")
                         .IsUnique();
 
-                    b.HasIndex("PublisherId")
-                        .IsUnique();
+                    b.HasIndex("PublisherId");
 
                     b.ToTable("Book");
 
@@ -141,7 +151,11 @@ namespace Books.Migrations
                             DifficultyId = new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
                             GenreId = new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
                             Name = "Snow Crash",
-                            PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427")
+                            Pagecount = 576,
+                            ProgressId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"),
+                            WordCount = 182234,
+                            WordsPerPage = 400
                         },
                         new
                         {
@@ -152,7 +166,11 @@ namespace Books.Migrations
                             DifficultyId = new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
                             GenreId = new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
                             Name = "Cryptonomicon",
-                            PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427")
+                            Pagecount = 1152,
+                            ProgressId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"),
+                            WordCount = 349056,
+                            WordsPerPage = 400
                         },
                         new
                         {
@@ -163,7 +181,11 @@ namespace Books.Migrations
                             DifficultyId = new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
                             GenreId = new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
                             Name = "Hyperion",
-                            PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427")
+                            Pagecount = 482,
+                            ProgressId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"),
+                            WordCount = 163500,
+                            WordsPerPage = 400
                         },
                         new
                         {
@@ -174,7 +196,11 @@ namespace Books.Migrations
                             DifficultyId = new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
                             GenreId = new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
                             Name = "Fall of Hyperion",
-                            PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427")
+                            Pagecount = 544,
+                            ProgressId = new Guid("00000000-0000-0000-0000-000000000000"),
+                            PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"),
+                            WordCount = 169059,
+                            WordsPerPage = 400
                         });
                 });
 
@@ -274,6 +300,76 @@ namespace Books.Migrations
                     b.ToTable("Images");
                 });
 
+            modelBuilder.Entity("Books.Models.Domain.Progress", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<bool>("completed")
+                        .HasColumnType("boolean");
+
+                    b.Property<int>("percentage")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("timeleft")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId")
+                        .IsUnique();
+
+                    b.HasIndex("UserId")
+                        .IsUnique();
+
+                    b.ToTable("Progress");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("ad91f371-ce2f-432b-b001-572f493c4112"),
+                            BookId = new Guid("ad241e9a-dc28-4a30-93e2-300402631654"),
+                            UserId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"),
+                            completed = true,
+                            percentage = 100,
+                            timeleft = 0
+                        },
+                        new
+                        {
+                            Id = new Guid("8ea8c311-aaa9-4e1a-ac39-95d2bd989cc1"),
+                            BookId = new Guid("941e317b-77e5-4f7d-915f-beb98541e560"),
+                            UserId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"),
+                            completed = false,
+                            percentage = 50,
+                            timeleft = 698
+                        },
+                        new
+                        {
+                            Id = new Guid("f4f791b9-4df7-4786-a247-4d2e69630eef"),
+                            BookId = new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"),
+                            UserId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"),
+                            completed = false,
+                            percentage = 75,
+                            timeleft = 163
+                        },
+                        new
+                        {
+                            Id = new Guid("9738c657-a1f3-4e5c-8f5b-e9e8b9e5bd06"),
+                            BookId = new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
+                            UserId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"),
+                            completed = false,
+                            percentage = 25,
+                            timeleft = 507
+                        });
+                });
+
             modelBuilder.Entity("Books.Models.Domain.Publisher", b =>
                 {
                     b.Property<Guid>("Id")
@@ -293,6 +389,49 @@ namespace Books.Migrations
                         {
                             Id = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"),
                             Name = "Penguin"
+                        });
+                });
+
+            modelBuilder.Entity("Books.Models.Domain.Review", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("BookId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.Property<int>("rating")
+                        .HasColumnType("integer");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("BookId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Reviews");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("fc859859-d1a9-495e-aac9-082b6e3f7989"),
+                            BookId = new Guid("ad241e9a-dc28-4a30-93e2-300402631654"),
+                            Comment = "This book is amazing blah blah ",
+                            Name = "Amazing book!!!",
+                            UserId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"),
+                            rating = 5
                         });
                 });
 
@@ -346,8 +485,8 @@ namespace Books.Migrations
             modelBuilder.Entity("Books.Models.Domain.Book", b =>
                 {
                     b.HasOne("Books.Models.Domain.Author", "Author")
-                        .WithOne("book")
-                        .HasForeignKey("Books.Models.Domain.Book", "AuthorId")
+                        .WithMany("Books")
+                        .HasForeignKey("AuthorId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -364,8 +503,8 @@ namespace Books.Migrations
                         .IsRequired();
 
                     b.HasOne("Books.Models.Domain.Publisher", "Publisher")
-                        .WithOne("book")
-                        .HasForeignKey("Books.Models.Domain.Book", "PublisherId")
+                        .WithMany("Books")
+                        .HasForeignKey("PublisherId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -378,10 +517,55 @@ namespace Books.Migrations
                     b.Navigation("Publisher");
                 });
 
+            modelBuilder.Entity("Books.Models.Domain.Progress", b =>
+                {
+                    b.HasOne("Books.Models.Domain.Book", "Book")
+                        .WithOne("Progress")
+                        .HasForeignKey("Books.Models.Domain.Progress", "BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Books.Models.Domain.User", "User")
+                        .WithOne("Progress")
+                        .HasForeignKey("Books.Models.Domain.Progress", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Books.Models.Domain.Review", b =>
+                {
+                    b.HasOne("Books.Models.Domain.Book", "Book")
+                        .WithMany("Reviews")
+                        .HasForeignKey("BookId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Books.Models.Domain.User", "User")
+                        .WithMany("Reviews")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Book");
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("Books.Models.Domain.Author", b =>
                 {
-                    b.Navigation("book")
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Books.Models.Domain.Book", b =>
+                {
+                    b.Navigation("Progress")
                         .IsRequired();
+
+                    b.Navigation("Reviews");
                 });
 
             modelBuilder.Entity("Books.Models.Domain.Difficulty", b =>
@@ -398,8 +582,15 @@ namespace Books.Migrations
 
             modelBuilder.Entity("Books.Models.Domain.Publisher", b =>
                 {
-                    b.Navigation("book")
+                    b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Books.Models.Domain.User", b =>
+                {
+                    b.Navigation("Progress")
                         .IsRequired();
+
+                    b.Navigation("Reviews");
                 });
 #pragma warning restore 612, 618
         }

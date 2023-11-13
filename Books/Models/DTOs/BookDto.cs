@@ -13,6 +13,12 @@ namespace Books.Models.DTOs
         public string Description { get; set; }
         public string? BookCover { get; set; }
 
+        public int Pagecount { get; set; }
+
+        public int WordsPerPage { get; set; }
+
+        public int WordCount { get; set; }
+
         public PublisherDto Publisher { get; set; }
       
         public GenreDto Genre { get; set; }

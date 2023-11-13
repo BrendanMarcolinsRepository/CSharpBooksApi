@@ -2,7 +2,7 @@
 using Books.Models.Domain;
 using Books.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
-
+using System.Diagnostics;
 
 namespace Books.Reposistories
 {
@@ -20,6 +20,8 @@ namespace Books.Reposistories
         {
             await dbContext.Authors.AddAsync(author);
             await dbContext.SaveChangesAsync();
+            System.Diagnostics.Debug.WriteLine("wokred =============== ");
+
             return author;
         }
 
@@ -51,13 +53,19 @@ namespace Books.Reposistories
             //get data from database = domain model
 
             var author = await dbContext.Authors.ToListAsync();
+
+
+
             return author;
            
         }
 
         public async Task<Author?> GetAnAuthor(Guid id)
         {
-            var author = await dbContext.Authors.FirstOrDefaultAsync(_author => _author.Id == id);
+            var author = await dbContext.Authors.Include(x => x.Books).FirstOrDefaultAsync(_author => _author.Id == id);
+
+            Debug.WriteLine($"Here ================>  {author} and {author.Books}");
+
             return author;
         }
 

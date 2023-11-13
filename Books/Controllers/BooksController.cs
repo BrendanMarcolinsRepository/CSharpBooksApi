@@ -4,6 +4,7 @@ using Books.Models.Domain;
 using Books.Models.DTOs;
 using Books.Reposistories;
 using Books.Service;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using static System.Reflection.Metadata.BlobBuilder;
@@ -25,6 +26,7 @@ namespace Books.Controllers
 
         [HttpPost]
         [ValidateModel]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> CreateABook([FromBody] CreateBookDto createBookDto)
         {
 
@@ -43,6 +45,7 @@ namespace Books.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Reader")]
         public async Task<IActionResult> GetAllBooks(
                 [FromQuery] string? filterOn, string? filteQuery,
                 [FromQuery] string? sortBy, [FromQuery] bool isAscending,
@@ -60,6 +63,7 @@ namespace Books.Controllers
 
         [HttpGet]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Reader")]
         public async Task<IActionResult> GetByBookId([FromRoute] Guid id) 
         {
             if (id == null) return NotFound();
@@ -76,6 +80,7 @@ namespace Books.Controllers
         [HttpPut]
         [Route("{id:Guid}")]
         [ValidateModel]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> UpdateABook([FromRoute] Guid id, [FromBody] UpdateBookDto bookDto)
         {
 
@@ -93,6 +98,7 @@ namespace Books.Controllers
 
         [HttpDelete]
         [Route("{id:Guid}")]
+        [Authorize(Roles = "Writer")]
         public async Task<IActionResult> DeleteABook([FromRoute] Guid id)
         {
 

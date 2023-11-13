@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Books.Migrations
 {
     /// <inheritdoc />
-    public partial class Initial : Migration
+    public partial class InitialCreate : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -98,11 +98,15 @@ namespace Books.Migrations
                     Id = table.Column<Guid>(type: "uuid", nullable: false),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Description = table.Column<string>(type: "text", nullable: false),
+                    Pagecount = table.Column<int>(type: "integer", nullable: false),
+                    WordsPerPage = table.Column<int>(type: "integer", nullable: false),
+                    WordCount = table.Column<int>(type: "integer", nullable: false),
                     BookCover = table.Column<string>(type: "text", nullable: true),
                     AuthorId = table.Column<Guid>(type: "uuid", nullable: false),
                     DifficultyId = table.Column<Guid>(type: "uuid", nullable: false),
                     PublisherId = table.Column<Guid>(type: "uuid", nullable: false),
-                    GenreId = table.Column<Guid>(type: "uuid", nullable: false)
+                    GenreId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ProgressId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -157,6 +161,62 @@ namespace Books.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Progress",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    percentage = table.Column<int>(type: "integer", nullable: false),
+                    completed = table.Column<bool>(type: "boolean", nullable: false),
+                    timeleft = table.Column<int>(type: "integer", nullable: false),
+                    BookId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Progress", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Progress_Book_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Book",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Progress_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Reviews",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(type: "uuid", nullable: false),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Comment = table.Column<string>(type: "text", nullable: false),
+                    rating = table.Column<int>(type: "integer", nullable: false),
+                    BookId = table.Column<Guid>(type: "uuid", nullable: false),
+                    UserId = table.Column<Guid>(type: "uuid", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reviews", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Book_BookId",
+                        column: x => x.BookId,
+                        principalTable: "Book",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Reviews_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.InsertData(
                 table: "Author",
                 columns: new[] { "Id", "Name" },
@@ -199,13 +259,13 @@ namespace Books.Migrations
 
             migrationBuilder.InsertData(
                 table: "Book",
-                columns: new[] { "Id", "AuthorId", "BookCover", "Description", "DifficultyId", "GenreId", "Name", "PublisherId" },
+                columns: new[] { "Id", "AuthorId", "BookCover", "Description", "DifficultyId", "GenreId", "Name", "Pagecount", "ProgressId", "PublisherId", "WordCount", "WordsPerPage" },
                 values: new object[,]
                 {
-                    { new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("302afacb-becd-4dfc-9186-5c7eaa93424b"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Hyperion", new Guid("5104a982-9ee5-4cf8-b947-037a1728e427") },
-                    { new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("06580836-f2af-42c0-b5a7-479975ef1c9d"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Cryptonomicon", new Guid("5104a982-9ee5-4cf8-b947-037a1728e427") },
-                    { new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("302afacb-becd-4dfc-9186-5c7eaa93424b"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Fall of Hyperion", new Guid("5104a982-9ee5-4cf8-b947-037a1728e427") },
-                    { new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("06580836-f2af-42c0-b5a7-479975ef1c9d"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Snow Crash", new Guid("5104a982-9ee5-4cf8-b947-037a1728e427") }
+                    { new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("302afacb-becd-4dfc-9186-5c7eaa93424b"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Hyperion", 482, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), 163500, 400 },
+                    { new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("06580836-f2af-42c0-b5a7-479975ef1c9d"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Cryptonomicon", 1152, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), 349056, 400 },
+                    { new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("302afacb-becd-4dfc-9186-5c7eaa93424b"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Fall of Hyperion", 544, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), 169059, 400 },
+                    { new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("06580836-f2af-42c0-b5a7-479975ef1c9d"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Snow Crash", 576, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), 182234, 400 }
                 });
 
             migrationBuilder.InsertData(
@@ -219,7 +279,23 @@ namespace Books.Migrations
                     { new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576") }
                 });
 
-            
+            migrationBuilder.InsertData(
+                table: "Progress",
+                columns: new[] { "Id", "BookId", "UserId", "completed", "percentage", "timeleft" },
+                values: new object[,]
+                {
+                    { new Guid("8ea8c311-aaa9-4e1a-ac39-95d2bd989cc1"), new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"), false, 50, 698 },
+                    { new Guid("9738c657-a1f3-4e5c-8f5b-e9e8b9e5bd06"), new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"), false, 25, 507 },
+                    { new Guid("ad91f371-ce2f-432b-b001-572f493c4112"), new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"), true, 100, 0 },
+                    { new Guid("f4f791b9-4df7-4786-a247-4d2e69630eef"), new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"), false, 75, 163 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Reviews",
+                columns: new[] { "Id", "BookId", "Comment", "Name", "UserId", "rating" },
+                values: new object[] { new Guid("fc859859-d1a9-495e-aac9-082b6e3f7989"), new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), "This book is amazing blah blah ", "Amazing book!!!", new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"), 5 });
+
+          
         }
 
         /// <inheritdoc />
@@ -230,6 +306,12 @@ namespace Books.Migrations
 
             migrationBuilder.DropTable(
                 name: "Images");
+
+            migrationBuilder.DropTable(
+                name: "Progress");
+
+            migrationBuilder.DropTable(
+                name: "Reviews");
 
             migrationBuilder.DropTable(
                 name: "Book");

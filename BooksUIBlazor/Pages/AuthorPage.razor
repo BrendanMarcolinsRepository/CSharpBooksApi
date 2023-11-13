@@ -1,0 +1,47 @@
+﻿@page "/authorpage"
+@using BooksUIBlazor.Data
+@inject AuthorService authorService
+
+<PageTitle>Authors</PageTitle>
+
+<h1>Authors</h1>
+
+<p>Your Current Authors From Your Books</p>
+
+@if (authors == null)
+{
+    <p><em>Loading...</em></p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+              
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var author in authors)
+            {
+                <tr>
+                    <td>@author.Id</td>
+                    <td>@author.Name</td>
+                   
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    private IEnumerable<Author> authors;
+
+    protected override async Task OnInitializedAsync()
+    {
+        authors = await authorService.GetAllAuthors();
+    }
+}
+
+

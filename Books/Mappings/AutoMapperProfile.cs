@@ -5,7 +5,10 @@ using Books.Models.DTOs.AuthorsDto;
 using Books.Models.DTOs.DifficultiesDto;
 using Books.Models.DTOs.GenresDto;
 using Books.Models.DTOs.ImageDto;
+using Books.Models.DTOs.ProgressDto;
 using Books.Models.DTOs.PublishersDto;
+using Books.Models.DTOs.ReviewDto;
+using Books.Models.DTOs.UserDto;
 
 namespace Books.Mappings
 {
@@ -35,6 +38,24 @@ namespace Books.Mappings
             //Images
             CreateMap<Image, ImageDto>().ReverseMap();
             CreateMap<Image, ImageUploadRequestDto>().ReverseMap();
+
+            //Users
+            CreateMap<User, UserDto>().ReverseMap();
+            CreateMap<User, GeneralUserDto>().ReverseMap();
+
+
+            //Publishers
+            CreateMap<Publisher, GeneralPublisherDto>().ReverseMap();
+            CreateMap<Publisher, PublisherDto>().ReverseMap();
+
+            //Reviews
+            CreateMap<Review, ReviewDto>().ReverseMap();
+            CreateMap<Review, GeneralReviewDto>().ReverseMap();
+
+            //Reviews
+            CreateMap<Progress, ProgressDto>().ReverseMap();
+            CreateMap<Progress, GeneralProgressDto>().ReverseMap();
+
 
             /*
             CreateMap<Author, AddAuthorDto>().ReverseMap()

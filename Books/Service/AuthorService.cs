@@ -22,13 +22,17 @@ namespace Books.Service
 
         public async Task<AuthorDto?> CreateAnAuthor(AddAuthorDto author)
         {
-            var authorCreate = mapper.Map<Author>(author);
+            var authorCreate = new Author { Name = author.Name };
 
             authorCreate = await authorRepository.CreateAnAuthor(authorCreate);
 
+         
+
             if (authorCreate == null) return null;
 
-            var authorDto = mapper.Map<AuthorDto>(author);
+            var authorDto = mapper.Map<AuthorDto>(authorCreate);
+
+            System.Diagnostics.Debug.WriteLine("wokred =============== " + authorDto.Name + " "  + authorDto.Id);
 
             return authorDto;
         }

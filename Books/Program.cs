@@ -14,50 +14,75 @@ using Books.Middlewares;
 using Microsoft.Net.Http.Headers;
 using Books.Service.GenreService;
 using Books.Reposistories.GenreRepository;
+using Books.Service.UserService;
+using Books.Reposistories.UserRepository;
+using System.Text.Json.Serialization;
+using Books.Service.PublisherService;
+using Books.Reposistories.PublisherRepository;
+using Books.Service.ReviewService;
+using Books.Reposistories.ReviewRepository;
+using Books.Service.ProgressService;
+using Books.Reposistories.ProgressRepository;
 
 var builder = WebApplication.CreateBuilder(args);
 
 //logger injection
 var logger = new LoggerConfiguration()
     .WriteTo.Console()
-    .WriteTo.File("Logs/BookLogs.txt", rollingInterval : RollingInterval.Day)
+    .WriteTo.File("Logs/BookLogs.txt", rollingInterval: RollingInterval.Day)
     .MinimumLevel.Information()
     .CreateLogger();
 
 builder.Logging.ClearProviders();
 builder.Logging.AddSerilog(logger);
 
-builder.Services.AddCors(options =>  
-    options.AddPolicy
+builder.Services.AddCors(options =>
+{
+    /* options.AddPolicy
     (
-        name: "MyAllowSpecificOrigins", 
-        builder =>
+
+    name: "MyAllowSpecificOrigins", 
+    builder =>
+    {
+        builder.WithOrigins("http://localhost:3000")
+        .WithMethods("PUT", "DELETE", "GET", "DELETE")
+        .WithHeaders
+        (
+            HeaderNames.Accept,
+            HeaderNames.ContentType,
+            HeaderNames.Authorization
+        )
+        .AllowCredentials()
+        .SetIsOriginAllowed(origin =>
         {
-            builder.WithOrigins("http://localhost:3000")
-            .WithMethods("PUT", "DELETE", "GET", "DELETE")
-            .WithHeaders
-            (
-                HeaderNames.Accept,
-                HeaderNames.ContentType,
-                HeaderNames.Authorization
-            )
-            .AllowCredentials()
-            .SetIsOriginAllowed(origin =>
+            if (string.IsNullOrWhiteSpace(origin)) return false;
+
+            if (origin.ToLower().StartsWith("http://localhost")) return true;
+
+            return false;
+
+        });
+
+    } 
+    ) */
+
+    options.AddDefaultPolicy(
+            builder =>
             {
-                if (string.IsNullOrWhiteSpace(origin)) return false;
-
-                if (origin.ToLower().StartsWith("http://localhost")) return true;
-
-                return false;
-
+                builder.WithOrigins("http://localhost:3000")
+                                    .AllowAnyHeader()
+                                    .AllowAnyMethod()
+                                    .AllowCredentials()
+                                    .SetIsOriginAllowed(_ => true);
             });
-        }
-    )
+}
 );
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(x => 
+    x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles
+);
 
 
 builder.Services.AddHttpContextAccessor();
@@ -93,11 +118,11 @@ builder.Services.AddSwaggerGen(options =>
                     Name = JwtBearerDefaults.AuthenticationScheme,
                     In = ParameterLocation.Header
                 },
-                
+
                 new List<String>()
             }
 
-           
+
         });
     }
 );
@@ -115,6 +140,10 @@ builder.Services.AddScoped<IBookService, BookService>();
 builder.Services.AddScoped<IDifficultiesService, DifficultiesService>();
 builder.Services.AddScoped<IAuthorService, AuthorService>();
 builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IPublisherService, PublisherService>();
+builder.Services.AddScoped<IReviewService, ReviewService>();
+builder.Services.AddScoped<IProgressService, ProgressService>();
 
 ///Repositories
 builder.Services.AddScoped<IAuthorRepositorycs, PostGresAuthorRepository>();
@@ -123,6 +152,10 @@ builder.Services.AddScoped<IDifficultiesRepository, PostGresDifficultiesResposit
 builder.Services.AddScoped<IGenreRepository, PostGresGenreRepository>();
 builder.Services.AddScoped<ITokenRepository, TokenJwtRepository>();
 builder.Services.AddScoped<IImageRepository, LocalImageRepository>();
+builder.Services.AddScoped<IUserRepository, PostGresUserRepository>();
+builder.Services.AddScoped<IPublisherRepository, PostGresPublisherRepository>();
+builder.Services.AddScoped<IReviewRepository, PostGresReviewRepository>();
+builder.Services.AddScoped<IProgressRepository, PostGresProgressRepository>();
 
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfile));
@@ -142,7 +175,7 @@ builder.Services.Configure<IdentityOptions>(options =>
         options.Password.RequiredLength = 8;
         options.Password.RequiredUniqueChars = 1;
     }
-); 
+);
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(option =>
@@ -175,15 +208,15 @@ app.UseAuthentication();
 
 app.UseAuthorization();
 
-app.UseCors("MyAllowSpecificOrigins");
-
+//app.UseCors("MyAllowSpecificOrigins");
+app.UseCors();
 app.UseStaticFiles
-(   new StaticFileOptions
-    {
-        FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
-        RequestPath = "/Images"
-    }
-    
+(new StaticFileOptions
+{
+    FileProvider = new PhysicalFileProvider(Path.Combine(Directory.GetCurrentDirectory(), "Images")),
+    RequestPath = "/Images"
+}
+
 );
 
 app.MapControllers();

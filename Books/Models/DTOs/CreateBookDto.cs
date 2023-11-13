@@ -20,6 +20,18 @@ namespace Books.Models.DTOs
         public string? BookCover { get; set; }
 
         [Required]
+        [MinLength(1, ErrorMessage = "Empty Input Here")]
+        public int Pagecount { get; set; }
+
+        [Required]
+        [MinLength(1, ErrorMessage = "Empty Input Here")]
+        public int WordsPerPage { get; set; }
+
+        [Required]
+        [MinLength(1, ErrorMessage = "Empty Input Here")]
+        public int WordCount { get; set; }
+
+        [Required]
         public Guid AuthorId { get; set; }
 
         [Required]

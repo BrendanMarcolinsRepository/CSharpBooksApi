@@ -1,0 +1,36 @@
+﻿@model BooksUI.Models.DTO.AuthorDto.AuthorDto
+
+@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+
+<h1 class="mt-3 ">Edit Author</h1>
+
+@if (Model is not null)
+{
+    <form method="post">
+        <div class="mt-3">
+            <label class="form-label">Id</label>
+            <input type="text" class="form-control" asp-for="Id" readonly/>
+
+        </div>
+
+        <div class="mt-3">
+            <label class="form-label">Name</label>
+            <input type="text" class="form-control" asp-for="Name" />
+
+        </div>
+
+        <div class="mt-3">
+            <button type="submit" class="btn btn-primary">Update</button>
+        </div>
+
+        <div class="mt-3  d-flex justify-content-between">
+            <button type="submit" asp-controller= "Books" asp-action="Delete" class="btn btn-danger">Update</button>
+        </div>
+
+    </form>
+}
+

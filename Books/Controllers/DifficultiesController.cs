@@ -26,7 +26,7 @@ namespace Books.Controllers
 
 
         [HttpGet]
-       //[Authorize(Roles = "Reader)")]
+       [Authorize(Roles = "Reader)")]
         public async Task<IActionResult> GetAllDifficulties()
         {
 

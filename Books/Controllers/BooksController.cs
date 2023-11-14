@@ -45,7 +45,7 @@ namespace Books.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Reader")]
+        //[Authorize(Roles = "Reader")]
         public async Task<IActionResult> GetAllBooks(
                 [FromQuery] string? filterOn, string? filteQuery,
                 [FromQuery] string? sortBy, [FromQuery] bool isAscending,
@@ -63,7 +63,7 @@ namespace Books.Controllers
 
         [HttpGet]
         [Route("{id:Guid}")]
-        [Authorize(Roles = "Reader")]
+        //[Authorize(Roles = "Reader")]
         public async Task<IActionResult> GetByBookId([FromRoute] Guid id) 
         {
             if (id == null) return NotFound();

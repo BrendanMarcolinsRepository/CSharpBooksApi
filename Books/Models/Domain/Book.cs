@@ -29,16 +29,16 @@ namespace Books.Models.Domain
 
         public Guid ProgressId { get; set; }
 
-        [JsonIgnore]
+    
         public Author Author { get; set; }
-        [JsonIgnore]
+       
         public Difficulty Difficulty { get; set; }
-        [JsonIgnore]
+       
         public Publisher Publisher { get; set; }
-        [JsonIgnore]
+       
         public Genre Genre { get; set; }
 
-        [JsonIgnore]
+       
         public Progress Progress { get; set; }
 
         [JsonIgnore]

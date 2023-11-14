@@ -55,7 +55,15 @@ namespace Books.Reposistories.GenreRepository
         public async Task<Genre?> GetAGenreById(Guid id)
         {
             var genreId = await dbContext.Genres.FirstOrDefaultAsync(x => x.Id ==  id);
-            return genreId == null ? null : genreId;
+
+            if (genreId == null)
+            {
+                return null;
+            }
+
+
+            return genreId;
+
         }
 
         public async Task<Genre> GetAGenreByName(string name)

@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Books.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class Inital : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -255,7 +255,7 @@ namespace Books.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Password", "Roles", "Username" },
-                values: new object[] { new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"), "Password123!", new[] { "Writer" }, "m@gmail.com" });
+                values: new object[] { new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), "Password123!", new[] { "Writer" }, "m@gmail.com" });
 
             migrationBuilder.InsertData(
                 table: "Book",
@@ -273,10 +273,10 @@ namespace Books.Migrations
                 columns: new[] { "BooksId", "UsersId" },
                 values: new object[,]
                 {
-                    { new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576") },
-                    { new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576") },
-                    { new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576") },
-                    { new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576") }
+                    { new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") },
+                    { new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") },
+                    { new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") },
+                    { new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") }
                 });
 
             migrationBuilder.InsertData(
@@ -284,18 +284,18 @@ namespace Books.Migrations
                 columns: new[] { "Id", "BookId", "UserId", "completed", "percentage", "timeleft" },
                 values: new object[,]
                 {
-                    { new Guid("8ea8c311-aaa9-4e1a-ac39-95d2bd989cc1"), new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"), false, 50, 698 },
-                    { new Guid("9738c657-a1f3-4e5c-8f5b-e9e8b9e5bd06"), new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"), false, 25, 507 },
-                    { new Guid("ad91f371-ce2f-432b-b001-572f493c4112"), new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"), true, 100, 0 },
-                    { new Guid("f4f791b9-4df7-4786-a247-4d2e69630eef"), new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"), false, 75, 163 }
+                    { new Guid("8ea8c311-aaa9-4e1a-ac39-95d2bd989cc1"), new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), false, 50, 698 },
+                    { new Guid("9738c657-a1f3-4e5c-8f5b-e9e8b9e5bd06"), new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), false, 25, 507 },
+                    { new Guid("ad91f371-ce2f-432b-b001-572f493c4112"), new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), true, 100, 0 },
+                    { new Guid("f4f791b9-4df7-4786-a247-4d2e69630eef"), new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), false, 75, 163 }
                 });
 
             migrationBuilder.InsertData(
                 table: "Reviews",
                 columns: new[] { "Id", "BookId", "Comment", "Name", "UserId", "rating" },
-                values: new object[] { new Guid("fc859859-d1a9-495e-aac9-082b6e3f7989"), new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), "This book is amazing blah blah ", "Amazing book!!!", new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"), 5 });
+                values: new object[] { new Guid("fc859859-d1a9-495e-aac9-082b6e3f7989"), new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), "This book is amazing blah blah ", "Amazing book!!!", new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), 5 });
 
-          
+            
         }
 
         /// <inheritdoc />

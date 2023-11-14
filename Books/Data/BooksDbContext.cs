@@ -147,7 +147,7 @@ namespace Books.Data
             {
                 new User()
                 {
-                    Id = Guid.Parse("eac69ca4-a917-4faf-9e3e-5bff6a951576"), Username = "m@gmail.com", Password = "Password123!", Roles = new string[] {"Writer"}
+                    Id = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), Username = "m@gmail.com", Password = "Password123!", Roles = new string[] {"Writer"}
                 }
             };
 
@@ -156,22 +156,22 @@ namespace Books.Data
             {
                 new { 
                     BooksId = Guid.Parse("ad241e9a-dc28-4a30-93e2-300402631654"),
-                    UsersId = Guid.Parse("eac69ca4-a917-4faf-9e3e-5bff6a951576") 
+                    UsersId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") 
                 },
 
                 new {
                     BooksId = Guid.Parse("941e317b-77e5-4f7d-915f-beb98541e560"),
-                    UsersId = Guid.Parse("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                    UsersId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                 },
 
                 new {
                     BooksId = Guid.Parse("2a7ada53-e3f7-4154-8737-dfee6aff1b80"),
-                    UsersId = Guid.Parse("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                    UsersId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                 },
 
                 new {
                     BooksId = Guid.Parse("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
-                    UsersId = Guid.Parse("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                    UsersId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                 }
             };
 
@@ -184,7 +184,7 @@ namespace Books.Data
                     percentage = 100,
                     timeleft = 0,
                     BookId = Guid.Parse("ad241e9a-dc28-4a30-93e2-300402631654"),
-                    UserId = Guid.Parse("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                    UserId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                 },
 
                 new Progress()
@@ -194,7 +194,7 @@ namespace Books.Data
                     percentage = 50,
                     timeleft = 698,
                     BookId = Guid.Parse("941e317b-77e5-4f7d-915f-beb98541e560"),
-                    UserId = Guid.Parse("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                    UserId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                 },
 
                 new Progress()
@@ -204,7 +204,7 @@ namespace Books.Data
                     percentage = 75,
                     timeleft = 163,
                     BookId = Guid.Parse("2a7ada53-e3f7-4154-8737-dfee6aff1b80"),
-                    UserId = Guid.Parse("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                    UserId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                 },
 
                 new Progress()
@@ -214,7 +214,7 @@ namespace Books.Data
                     percentage = 25,
                     timeleft = 507,
                     BookId = Guid.Parse("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
-                    UserId = Guid.Parse("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                    UserId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                 }
             }; 
 
@@ -227,14 +227,14 @@ namespace Books.Data
                    Comment = "This book is amazing blah blah ",
                    rating = 5,
                    BookId = Guid.Parse("ad241e9a-dc28-4a30-93e2-300402631654"),
-                   UserId = Guid.Parse("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                   UserId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                }
            };
 
             modelBuilder.Entity<Book>().HasOne(exp => exp.Author).WithMany(exp => exp.Books).HasForeignKey(exp => exp.AuthorId);
-            modelBuilder.Entity<Book>().HasOne(exp => exp.Difficulty).WithOne(exp => exp.book).HasForeignKey<Book>(exp => exp.DifficultyId);
+            modelBuilder.Entity<Book>().HasOne(exp => exp.Difficulty).WithMany(exp => exp.Books).HasForeignKey(exp => exp.DifficultyId);
             modelBuilder.Entity<Book>().HasOne(exp => exp.Publisher).WithMany(exp => exp.Books).HasForeignKey(exp => exp.PublisherId);
-            modelBuilder.Entity<Book>().HasOne(exp => exp.Genre).WithOne(exp => exp.book).HasForeignKey<Book>(exp => exp.GenreId);
+            modelBuilder.Entity<Book>().HasOne(exp => exp.Genre).WithMany(exp => exp.Books).HasForeignKey(exp => exp.GenreId);
             
 
             modelBuilder.Entity<Publisher>().HasData(publisher);

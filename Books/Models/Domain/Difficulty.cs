@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Books.Models.Domain
 {
@@ -9,8 +10,8 @@ namespace Books.Models.Domain
         [Key]
         public Guid Id { get; set; }
         public string Name { get; set; }
-
-        public Book book { get; set; }
+        [JsonIgnore]
+        public ICollection<Book> Books { get; set; }
 
 
     }

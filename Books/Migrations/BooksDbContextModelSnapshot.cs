@@ -40,22 +40,22 @@ namespace Books.Migrations
                         new
                         {
                             BooksId = new Guid("ad241e9a-dc28-4a30-93e2-300402631654"),
-                            UsersId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                            UsersId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                         },
                         new
                         {
                             BooksId = new Guid("941e317b-77e5-4f7d-915f-beb98541e560"),
-                            UsersId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                            UsersId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                         },
                         new
                         {
                             BooksId = new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"),
-                            UsersId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                            UsersId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                         },
                         new
                         {
                             BooksId = new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
-                            UsersId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576")
+                            UsersId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                         });
                 });
 
@@ -131,11 +131,9 @@ namespace Books.Migrations
 
                     b.HasIndex("AuthorId");
 
-                    b.HasIndex("DifficultyId")
-                        .IsUnique();
+                    b.HasIndex("DifficultyId");
 
-                    b.HasIndex("GenreId")
-                        .IsUnique();
+                    b.HasIndex("GenreId");
 
                     b.HasIndex("PublisherId");
 
@@ -336,7 +334,7 @@ namespace Books.Migrations
                         {
                             Id = new Guid("ad91f371-ce2f-432b-b001-572f493c4112"),
                             BookId = new Guid("ad241e9a-dc28-4a30-93e2-300402631654"),
-                            UserId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"),
+                            UserId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"),
                             completed = true,
                             percentage = 100,
                             timeleft = 0
@@ -345,7 +343,7 @@ namespace Books.Migrations
                         {
                             Id = new Guid("8ea8c311-aaa9-4e1a-ac39-95d2bd989cc1"),
                             BookId = new Guid("941e317b-77e5-4f7d-915f-beb98541e560"),
-                            UserId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"),
+                            UserId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"),
                             completed = false,
                             percentage = 50,
                             timeleft = 698
@@ -354,7 +352,7 @@ namespace Books.Migrations
                         {
                             Id = new Guid("f4f791b9-4df7-4786-a247-4d2e69630eef"),
                             BookId = new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"),
-                            UserId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"),
+                            UserId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"),
                             completed = false,
                             percentage = 75,
                             timeleft = 163
@@ -363,7 +361,7 @@ namespace Books.Migrations
                         {
                             Id = new Guid("9738c657-a1f3-4e5c-8f5b-e9e8b9e5bd06"),
                             BookId = new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
-                            UserId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"),
+                            UserId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"),
                             completed = false,
                             percentage = 25,
                             timeleft = 507
@@ -430,7 +428,7 @@ namespace Books.Migrations
                             BookId = new Guid("ad241e9a-dc28-4a30-93e2-300402631654"),
                             Comment = "This book is amazing blah blah ",
                             Name = "Amazing book!!!",
-                            UserId = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"),
+                            UserId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"),
                             rating = 5
                         });
                 });
@@ -460,7 +458,7 @@ namespace Books.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("eac69ca4-a917-4faf-9e3e-5bff6a951576"),
+                            Id = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"),
                             Password = "Password123!",
                             Roles = new[] { "Writer" },
                             Username = "m@gmail.com"
@@ -491,14 +489,14 @@ namespace Books.Migrations
                         .IsRequired();
 
                     b.HasOne("Books.Models.Domain.Difficulty", "Difficulty")
-                        .WithOne("book")
-                        .HasForeignKey("Books.Models.Domain.Book", "DifficultyId")
+                        .WithMany("Books")
+                        .HasForeignKey("DifficultyId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Books.Models.Domain.Genre", "Genre")
-                        .WithOne("book")
-                        .HasForeignKey("Books.Models.Domain.Book", "GenreId")
+                        .WithMany("Books")
+                        .HasForeignKey("GenreId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -570,14 +568,12 @@ namespace Books.Migrations
 
             modelBuilder.Entity("Books.Models.Domain.Difficulty", b =>
                 {
-                    b.Navigation("book")
-                        .IsRequired();
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Books.Models.Domain.Genre", b =>
                 {
-                    b.Navigation("book")
-                        .IsRequired();
+                    b.Navigation("Books");
                 });
 
             modelBuilder.Entity("Books.Models.Domain.Publisher", b =>

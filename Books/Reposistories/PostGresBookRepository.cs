@@ -2,6 +2,7 @@
 using Books.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
+using System.Diagnostics;
 
 namespace Books.Reposistories
 {
@@ -46,9 +47,22 @@ namespace Books.Reposistories
         )
         {
 
-            var book = dbContext.Books.Include("Author").Include("Difficulty").AsQueryable();
+            var book = dbContext.Books
+                            .Include(b => b.Author)
+                            .Include(b => b.Difficulty)
+                            .Include(b => b.Genre)
+                            .Include(b => b.Publisher)
+                            .AsQueryable();
+
+            var r = await book.ToListAsync();
+            
+            foreach ( var item in r ) 
+            {
+                Debug.WriteLine("diff book  ============ " + item.Difficulty);
+            }
 
             //filtering 
+            /*
             if (!string.IsNullOrEmpty(filterOn) && !string.IsNullOrEmpty(filterQuery)) 
             {
                 if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
@@ -72,7 +86,8 @@ namespace Books.Reposistories
 
 
             return await book.Skip(skipResults).Take(pageSize).ToListAsync();
-
+            */
+            return await book.ToListAsync();
 
             //return await dbContext.Books.Include("Author").Include("Difficulty").ToListAsync();
 
@@ -82,11 +97,11 @@ namespace Books.Reposistories
 
         public async Task<Book?> getBookById(Guid id)
         {
-            return await dbContext
-                .Books.Include("Author")
-                .Include("Difficulty")
-                .Include("Genre")
-                .Include("Publisher")
+            return await dbContext.Books
+                .Include(b => b.Author)
+                .Include(b => b.Difficulty)
+                .Include(b => b.Genre)
+                .Include(b => b.Publisher)         
                 .FirstOrDefaultAsync(book => book.Id == id);
         }
 

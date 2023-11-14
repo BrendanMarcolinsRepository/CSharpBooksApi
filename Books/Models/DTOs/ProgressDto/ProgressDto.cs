@@ -17,10 +17,10 @@ namespace Books.Models.DTOs.ProgressDto
 
         public Guid UserId { get; set; }
 
-        [JsonIgnore]
+     
         public Book Book { get; set; }
 
-        [JsonIgnore]
+       
         public User User { get; set; }
     }
 }

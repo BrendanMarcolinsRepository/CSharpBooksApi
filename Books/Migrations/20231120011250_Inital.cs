@@ -101,12 +101,13 @@ namespace Books.Migrations
                     Pagecount = table.Column<int>(type: "integer", nullable: false),
                     WordsPerPage = table.Column<int>(type: "integer", nullable: false),
                     WordCount = table.Column<int>(type: "integer", nullable: false),
-                    BookCover = table.Column<string>(type: "text", nullable: true),
+                    Release = table.Column<DateTime>(type: "DATE", nullable: false),
                     AuthorId = table.Column<Guid>(type: "uuid", nullable: false),
                     DifficultyId = table.Column<Guid>(type: "uuid", nullable: false),
                     PublisherId = table.Column<Guid>(type: "uuid", nullable: false),
                     GenreId = table.Column<Guid>(type: "uuid", nullable: false),
-                    ProgressId = table.Column<Guid>(type: "uuid", nullable: false)
+                    ProgressId = table.Column<Guid>(type: "uuid", nullable: false),
+                    ImageId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -127,6 +128,12 @@ namespace Books.Migrations
                         name: "FK_Book_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Book_Images_ImageId",
+                        column: x => x.ImageId,
+                        principalTable: "Images",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -248,6 +255,17 @@ namespace Books.Migrations
                 });
 
             migrationBuilder.InsertData(
+                table: "Images",
+                columns: new[] { "Id", "FileDescription", "FileExtension", "FileName", "FilePath", "FileSizeInBytes" },
+                values: new object[,]
+                {
+                    { new Guid("06d7fc6b-4847-4f03-8c6b-790875025e0c"), "The Fall of Hyperion by Dan Simmons", ".jpg", "thefallofhyperion", "D:/c#backend/Apidonet7/Books/Books/Images/thefallofhyperion", 131072L },
+                    { new Guid("978dc6a0-fd94-4525-a0bf-3eece3b4ab75"), "Snow Crash by Neil Stephenson", ".jpg", "snowcrash", "D:/c#backend/Apidonet7/Books/Books/Images/snowcrash", 131072L },
+                    { new Guid("9e3cb3b6-91ad-4326-9d80-b52e6e1a8cd2"), "Cryptonomicon by Neil Stephenson", ".jpg", "cryptonomicon", "D:/c#backend/Apidonet7/Books/Books/Images/cryptonomicon", 12288L },
+                    { new Guid("c75e924b-dc4c-4115-9d91-2c50b8369551"), "Hyperion by Dan Simmons", ".jpg", "hyperion", "D:/c#backend/Apidonet7/Books/Books/Images/hyperion", 131072L }
+                });
+
+            migrationBuilder.InsertData(
                 table: "Publishers",
                 columns: new[] { "Id", "Name" },
                 values: new object[] { new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), "Penguin" });
@@ -255,17 +273,21 @@ namespace Books.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "Id", "Password", "Roles", "Username" },
-                values: new object[] { new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), "Password123!", new[] { "Writer" }, "m@gmail.com" });
+                values: new object[,]
+                {
+                    { new Guid("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30"), "Password123!", new[] { "Reader" }, "k@gmail.com" },
+                    { new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), "Password123!", new[] { "Writer", "Reader" }, "m@gmail.com" }
+                });
 
             migrationBuilder.InsertData(
                 table: "Book",
-                columns: new[] { "Id", "AuthorId", "BookCover", "Description", "DifficultyId", "GenreId", "Name", "Pagecount", "ProgressId", "PublisherId", "WordCount", "WordsPerPage" },
+                columns: new[] { "Id", "AuthorId", "Description", "DifficultyId", "GenreId", "ImageId", "Name", "Pagecount", "ProgressId", "PublisherId", "Release", "WordCount", "WordsPerPage" },
                 values: new object[,]
                 {
-                    { new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("302afacb-becd-4dfc-9186-5c7eaa93424b"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Hyperion", 482, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), 163500, 400 },
-                    { new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("06580836-f2af-42c0-b5a7-479975ef1c9d"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Cryptonomicon", 1152, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), 349056, 400 },
-                    { new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("302afacb-becd-4dfc-9186-5c7eaa93424b"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Fall of Hyperion", 544, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), 169059, 400 },
-                    { new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("06580836-f2af-42c0-b5a7-479975ef1c9d"), "", "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), "Snow Crash", 576, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), 182234, 400 }
+                    { new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("302afacb-becd-4dfc-9186-5c7eaa93424b"), "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), new Guid("c75e924b-dc4c-4115-9d91-2c50b8369551"), "Hyperion", 482, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), new DateTime(1989, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 163500, 400 },
+                    { new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("06580836-f2af-42c0-b5a7-479975ef1c9d"), "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), new Guid("978dc6a0-fd94-4525-a0bf-3eece3b4ab75"), "Cryptonomicon", 1152, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), new DateTime(1999, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 349056, 400 },
+                    { new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("302afacb-becd-4dfc-9186-5c7eaa93424b"), "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), new Guid("06d7fc6b-4847-4f03-8c6b-790875025e0c"), "Fall of Hyperion", 544, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), new DateTime(1989, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 169059, 400 },
+                    { new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("06580836-f2af-42c0-b5a7-479975ef1c9d"), "", new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"), new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), new Guid("9e3cb3b6-91ad-4326-9d80-b52e6e1a8cd2"), "Snow Crash", 576, new Guid("00000000-0000-0000-0000-000000000000"), new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"), new DateTime(1992, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 182234, 400 }
                 });
 
             migrationBuilder.InsertData(
@@ -275,6 +297,7 @@ namespace Books.Migrations
                 {
                     { new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") },
                     { new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") },
+                    { new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30") },
                     { new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") },
                     { new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") }
                 });
@@ -305,9 +328,6 @@ namespace Books.Migrations
                 name: "BookUser");
 
             migrationBuilder.DropTable(
-                name: "Images");
-
-            migrationBuilder.DropTable(
                 name: "Progress");
 
             migrationBuilder.DropTable(
@@ -327,6 +347,9 @@ namespace Books.Migrations
 
             migrationBuilder.DropTable(
                 name: "Genres");
+
+            migrationBuilder.DropTable(
+                name: "Images");
 
             migrationBuilder.DropTable(
                 name: "Publishers");

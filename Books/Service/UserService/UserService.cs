@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Books.Models.Domain;
+using Books.Models.DTOs;
 using Books.Models.DTOs.GenresDto;
 using Books.Models.DTOs.UserDto;
 using Books.Reposistories.GenreRepository;
@@ -50,9 +51,13 @@ namespace Books.Service.UserService
             return generalUserDto != null ? generalUserDto : null;
         }
 
-        public async Task<GeneralUserDto> GetAUserByName(string name)
+        public async Task<GeneralUserDto> GetAUserWithBookSpeficicBookName(Guid id, string name)
         {
-            throw new NotImplementedException();
+            var userSpecificData = await userRepository.GetAUserWithBookSpeficicBookName(id, name);
+
+            var generalUserDto = mapper.Map<GeneralUserDto?>(userSpecificData);
+
+            return generalUserDto != null ? generalUserDto : null;
         }
 
         public async Task<GeneralUserDto?> UpdateAUser(Guid id, UserDto UserDto)

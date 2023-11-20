@@ -22,14 +22,14 @@ namespace Books.Reposistories
             await dbContext.SaveChangesAsync();
 
             return book;
-            
+
         }
 
         public async Task<Book?> DeleteABook(Guid id)
         {
             var existingBook = await getBookById(id);
 
-            if (existingBook != null) 
+            if (existingBook != null)
             {
                 dbContext.Books.Remove(existingBook);
                 await dbContext.SaveChangesAsync();
@@ -52,27 +52,23 @@ namespace Books.Reposistories
                             .Include(b => b.Difficulty)
                             .Include(b => b.Genre)
                             .Include(b => b.Publisher)
+                            .Include(b => b.Image)
                             .AsQueryable();
 
-            var r = await book.ToListAsync();
-            
-            foreach ( var item in r ) 
-            {
-                Debug.WriteLine("diff book  ============ " + item.Difficulty);
-            }
 
-            //filtering 
-            /*
-            if (!string.IsNullOrEmpty(filterOn) && !string.IsNullOrEmpty(filterQuery)) 
+
+
+
+            if (!string.IsNullOrEmpty(filterOn) && !string.IsNullOrEmpty(filterQuery))
             {
                 if (filterOn.Equals("Name", StringComparison.OrdinalIgnoreCase))
 
                     book = book.Where(b => b.Name.Contains(filterQuery));
             }
 
-           
 
-            if(!string.IsNullOrEmpty(sortBy)) 
+
+            if (!string.IsNullOrEmpty(sortBy))
             {
                 if (sortBy.Equals("Name", StringComparison.OrdinalIgnoreCase))
                 {
@@ -86,14 +82,13 @@ namespace Books.Reposistories
 
 
             return await book.Skip(skipResults).Take(pageSize).ToListAsync();
-            */
-            return await book.ToListAsync();
 
-            //return await dbContext.Books.Include("Author").Include("Difficulty").ToListAsync();
+
+
 
         }
 
-       
+
 
         public async Task<Book?> getBookById(Guid id)
         {
@@ -101,15 +96,41 @@ namespace Books.Reposistories
                 .Include(b => b.Author)
                 .Include(b => b.Difficulty)
                 .Include(b => b.Genre)
-                .Include(b => b.Publisher)         
+                .Include(b => b.Publisher)
                 .FirstOrDefaultAsync(book => book.Id == id);
+        }
+
+        public async Task<List<Book>> GetPopularBooks()
+        {
+
+
+            var bookorder = await dbContext.Books
+              .Include(b => b.Author)
+              .Include(b => b.Difficulty)
+              .Include(b => b.Genre)
+              .Include(b => b.Publisher)
+              .OrderByDescending(x => x.Users.Select(u => u.Id).Count())
+              .ToListAsync();
+
+            return bookorder;
+        }
+
+        public async Task<List<Book>> GetRecentBooks()
+        {
+            return await dbContext.Books
+               .Include(b => b.Author)
+               .Include(b => b.Difficulty)
+               .Include(b => b.Genre)
+               .Include(b => b.Publisher)
+               .OrderByDescending(b => b.Release)
+               .ToListAsync();
         }
 
         public async Task<Book?> updateABook(Guid id, Book book)
         {
             var existingBook = await getBookById(id);
-            
-            if(existingBook != null) 
+
+            if (existingBook != null)
             {
                 existingBook.Name = book.Name;
                 existingBook.Description = book.Description;

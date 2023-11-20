@@ -2,6 +2,7 @@
 using Books.Models.Domain;
 using Books.Models.DTOs;
 using Books.Reposistories;
+using System.Globalization;
 
 namespace Books.Service
 {
@@ -67,6 +68,30 @@ namespace Books.Service
             return bookDto;
 
 
+        }
+
+   
+
+        public async Task<List<BookDto>> GetPopularBooks()
+        {
+            var book = await bookRepository.GetPopularBooks();
+
+            if (book == null) return null;
+
+            var bookDto = mapper.Map<List<BookDto>>(book);
+
+            return bookDto;
+        }
+
+        public async Task<List<BookDto>> GetRecentBooks()
+        {
+            var book = await bookRepository.GetRecentBooks();
+
+            if (book == null) return null;
+
+            var bookDto = mapper.Map<List<BookDto>>(book);
+
+            return bookDto;
         }
 
         public async Task<BookDto?> UpdateABook(Guid id, UpdateBookDto updateBookDto)

@@ -16,8 +16,8 @@ namespace Books.Models.Domain
         public int WordsPerPage { get; set; }
 
         public int WordCount { get; set; }
-
-        public string? BookCover { get; set; }
+        [Column(TypeName = "DATE")]
+        public DateTime Release { get; set; }   
 
         public Guid AuthorId { get; set; }
 
@@ -29,7 +29,8 @@ namespace Books.Models.Domain
 
         public Guid ProgressId { get; set; }
 
-    
+        public Guid ImageId { get; set; }
+
         public Author Author { get; set; }
        
         public Difficulty Difficulty { get; set; }
@@ -40,6 +41,8 @@ namespace Books.Models.Domain
 
        
         public Progress Progress { get; set; }
+
+        public Image Image { get; set; }
 
         [JsonIgnore]
         public ICollection<User> Users { get; set; }

@@ -31,14 +31,19 @@ namespace Books.Controllers
 
             var user = await userService.GetAUserById(id);
 
-             
-            foreach(var item in user.Books) 
-            {
-                Debug.WriteLine(item.Name);
-            }
 
             return user == null ? NotFound() : Ok(user);
 
+        }
+
+        [HttpGet]
+        [Route("{id:Guid}/{name}")]
+        public async Task<IActionResult> GetAUserWithBookSpeficicBookName([FromRoute] Guid id, [FromRoute] string name) {
+            
+            var user = await userService.GetAUserWithBookSpeficicBookName(id, name);
+
+
+            return user == null ? NotFound() : Ok(user);
         }
 
     }

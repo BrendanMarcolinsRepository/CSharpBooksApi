@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Books.Models.Domain;
 using Books.Models.DTOs;
-using Books.Models.DTOs.ImageDto;
+using Books.Models.DTOs;
 using Books.Reposistories;
 
 namespace Books.Service

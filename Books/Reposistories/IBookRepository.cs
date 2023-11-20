@@ -17,5 +17,9 @@ namespace Books.Reposistories
         Task<Book?> updateABook(Guid id, Book book);
 
         Task<Book?> DeleteABook(Guid id);
+
+        Task<List<Book>> GetRecentBooks();
+
+        Task<List<Book>> GetPopularBooks();
     }
 }

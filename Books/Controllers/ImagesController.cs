@@ -1,4 +1,4 @@
-﻿using Books.Models.DTOs.ImageDto;
+﻿using Books.Models.DTOs;
 using Books.Service;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;

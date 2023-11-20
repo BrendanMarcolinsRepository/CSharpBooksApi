@@ -6,6 +6,7 @@ namespace Books.Models.Domain
     {
         public Guid Id { get; set; }
 
+
         [NotMapped]
         public IFormFile File  { get; set; }
 
@@ -18,5 +19,7 @@ namespace Books.Models.Domain
         public long? FileSizeInBytes { get; set; }
 
         public string? FilePath { get; set; }
+
+        public Book Book { get; set; }
     }
 }

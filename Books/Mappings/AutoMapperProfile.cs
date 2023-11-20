@@ -4,7 +4,7 @@ using Books.Models.DTOs;
 using Books.Models.DTOs.AuthorsDto;
 using Books.Models.DTOs.DifficultiesDto;
 using Books.Models.DTOs.GenresDto;
-using Books.Models.DTOs.ImageDto;
+using Books.Models.DTOs;
 using Books.Models.DTOs.ProgressDto;
 using Books.Models.DTOs.PublishersDto;
 using Books.Models.DTOs.ReviewDto;

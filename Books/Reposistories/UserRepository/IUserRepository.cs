@@ -8,7 +8,7 @@ namespace Books.Reposistories.UserRepository
 
         Task<User?> GetAUserById(Guid id);
 
-        Task<User> GetAUserByName(String name);
+        Task<User> GetAUserWithBookSpeficicBookName(Guid id, string name);
 
         Task<User?> CreateAUser(User user);
 

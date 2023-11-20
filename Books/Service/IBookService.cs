@@ -17,5 +17,9 @@ namespace Books.Service
         Task<BookDto?> UpdateABook(Guid id, UpdateBookDto updateBookDto);
 
         Task<BookDto?> DeleteABook(Guid id);
+
+        Task<List<BookDto>> GetRecentBooks();
+
+        Task<List<BookDto>> GetPopularBooks();
     }
 }

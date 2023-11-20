@@ -1,4 +1,6 @@
-﻿using Books.Models.DTOs.GenresDto;
+﻿using Books.Models.Domain;
+using Books.Models.DTOs;
+using Books.Models.DTOs.GenresDto;
 using Books.Models.DTOs.UserDto;
 
 namespace Books.Service.UserService
@@ -9,7 +11,7 @@ namespace Books.Service.UserService
 
         Task<GeneralUserDto?> GetAUserById(Guid id);
 
-        Task<GeneralUserDto> GetAUserByName(string name);
+        Task<GeneralUserDto> GetAUserWithBookSpeficicBookName(Guid id, string name);
 
         Task<GeneralUserDto?> CreateAUser(UserDto userDto);
 

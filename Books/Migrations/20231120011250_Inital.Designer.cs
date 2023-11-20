@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Books.Migrations
 {
     [DbContext(typeof(BooksDbContext))]
-    [Migration("20231114040425_Inital")]
+    [Migration("20231120011250_Inital")]
     partial class Inital
     {
         /// <inheritdoc />
@@ -59,6 +59,11 @@ namespace Books.Migrations
                         {
                             BooksId = new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
                             UsersId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
+                        },
+                        new
+                        {
+                            BooksId = new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
+                            UsersId = new Guid("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30")
                         });
                 });
 
@@ -98,9 +103,6 @@ namespace Books.Migrations
                     b.Property<Guid>("AuthorId")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("BookCover")
-                        .HasColumnType("text");
-
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("text");
@@ -109,6 +111,9 @@ namespace Books.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<Guid>("GenreId")
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("ImageId")
                         .HasColumnType("uuid");
 
                     b.Property<string>("Name")
@@ -124,6 +129,9 @@ namespace Books.Migrations
                     b.Property<Guid>("PublisherId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("Release")
+                        .HasColumnType("DATE");
+
                     b.Property<int>("WordCount")
                         .HasColumnType("integer");
 
@@ -138,6 +146,9 @@ namespace Books.Migrations
 
                     b.HasIndex("GenreId");
 
+                    b.HasIndex("ImageId")
+                        .IsUnique();
+
                     b.HasIndex("PublisherId");
 
                     b.ToTable("Book");
@@ -147,14 +158,15 @@ namespace Books.Migrations
                         {
                             Id = new Guid("ad241e9a-dc28-4a30-93e2-300402631654"),
                             AuthorId = new Guid("06580836-f2af-42c0-b5a7-479975ef1c9d"),
-                            BookCover = "",
                             Description = "",
                             DifficultyId = new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
                             GenreId = new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
+                            ImageId = new Guid("9e3cb3b6-91ad-4326-9d80-b52e6e1a8cd2"),
                             Name = "Snow Crash",
                             Pagecount = 576,
                             ProgressId = new Guid("00000000-0000-0000-0000-000000000000"),
                             PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"),
+                            Release = new DateTime(1992, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             WordCount = 182234,
                             WordsPerPage = 400
                         },
@@ -162,14 +174,15 @@ namespace Books.Migrations
                         {
                             Id = new Guid("941e317b-77e5-4f7d-915f-beb98541e560"),
                             AuthorId = new Guid("06580836-f2af-42c0-b5a7-479975ef1c9d"),
-                            BookCover = "",
                             Description = "",
                             DifficultyId = new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
                             GenreId = new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
+                            ImageId = new Guid("978dc6a0-fd94-4525-a0bf-3eece3b4ab75"),
                             Name = "Cryptonomicon",
                             Pagecount = 1152,
                             ProgressId = new Guid("00000000-0000-0000-0000-000000000000"),
                             PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"),
+                            Release = new DateTime(1999, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             WordCount = 349056,
                             WordsPerPage = 400
                         },
@@ -177,14 +190,15 @@ namespace Books.Migrations
                         {
                             Id = new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"),
                             AuthorId = new Guid("302afacb-becd-4dfc-9186-5c7eaa93424b"),
-                            BookCover = "",
                             Description = "",
                             DifficultyId = new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
                             GenreId = new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
+                            ImageId = new Guid("c75e924b-dc4c-4115-9d91-2c50b8369551"),
                             Name = "Hyperion",
                             Pagecount = 482,
                             ProgressId = new Guid("00000000-0000-0000-0000-000000000000"),
                             PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"),
+                            Release = new DateTime(1989, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             WordCount = 163500,
                             WordsPerPage = 400
                         },
@@ -192,14 +206,15 @@ namespace Books.Migrations
                         {
                             Id = new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
                             AuthorId = new Guid("302afacb-becd-4dfc-9186-5c7eaa93424b"),
-                            BookCover = "",
                             Description = "",
                             DifficultyId = new Guid("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
                             GenreId = new Guid("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
+                            ImageId = new Guid("06d7fc6b-4847-4f03-8c6b-790875025e0c"),
                             Name = "Fall of Hyperion",
                             Pagecount = 544,
                             ProgressId = new Guid("00000000-0000-0000-0000-000000000000"),
                             PublisherId = new Guid("5104a982-9ee5-4cf8-b947-037a1728e427"),
+                            Release = new DateTime(1989, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             WordCount = 169059,
                             WordsPerPage = 400
                         });
@@ -299,6 +314,44 @@ namespace Books.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Images");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("9e3cb3b6-91ad-4326-9d80-b52e6e1a8cd2"),
+                            FileDescription = "Cryptonomicon by Neil Stephenson",
+                            FileExtension = ".jpg",
+                            FileName = "cryptonomicon",
+                            FilePath = "D:/c#backend/Apidonet7/Books/Books/Images/cryptonomicon",
+                            FileSizeInBytes = 12288L
+                        },
+                        new
+                        {
+                            Id = new Guid("978dc6a0-fd94-4525-a0bf-3eece3b4ab75"),
+                            FileDescription = "Snow Crash by Neil Stephenson",
+                            FileExtension = ".jpg",
+                            FileName = "snowcrash",
+                            FilePath = "D:/c#backend/Apidonet7/Books/Books/Images/snowcrash",
+                            FileSizeInBytes = 131072L
+                        },
+                        new
+                        {
+                            Id = new Guid("c75e924b-dc4c-4115-9d91-2c50b8369551"),
+                            FileDescription = "Hyperion by Dan Simmons",
+                            FileExtension = ".jpg",
+                            FileName = "hyperion",
+                            FilePath = "D:/c#backend/Apidonet7/Books/Books/Images/hyperion",
+                            FileSizeInBytes = 131072L
+                        },
+                        new
+                        {
+                            Id = new Guid("06d7fc6b-4847-4f03-8c6b-790875025e0c"),
+                            FileDescription = "The Fall of Hyperion by Dan Simmons",
+                            FileExtension = ".jpg",
+                            FileName = "thefallofhyperion",
+                            FilePath = "D:/c#backend/Apidonet7/Books/Books/Images/thefallofhyperion",
+                            FileSizeInBytes = 131072L
+                        });
                 });
 
             modelBuilder.Entity("Books.Models.Domain.Progress", b =>
@@ -463,8 +516,15 @@ namespace Books.Migrations
                         {
                             Id = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"),
                             Password = "Password123!",
-                            Roles = new[] { "Writer" },
+                            Roles = new[] { "Writer", "Reader" },
                             Username = "m@gmail.com"
+                        },
+                        new
+                        {
+                            Id = new Guid("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30"),
+                            Password = "Password123!",
+                            Roles = new[] { "Reader" },
+                            Username = "k@gmail.com"
                         });
                 });
 
@@ -503,6 +563,12 @@ namespace Books.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("Books.Models.Domain.Image", "Image")
+                        .WithOne("Book")
+                        .HasForeignKey("Books.Models.Domain.Book", "ImageId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("Books.Models.Domain.Publisher", "Publisher")
                         .WithMany("Books")
                         .HasForeignKey("PublisherId")
@@ -514,6 +580,8 @@ namespace Books.Migrations
                     b.Navigation("Difficulty");
 
                     b.Navigation("Genre");
+
+                    b.Navigation("Image");
 
                     b.Navigation("Publisher");
                 });
@@ -577,6 +645,12 @@ namespace Books.Migrations
             modelBuilder.Entity("Books.Models.Domain.Genre", b =>
                 {
                     b.Navigation("Books");
+                });
+
+            modelBuilder.Entity("Books.Models.Domain.Image", b =>
+                {
+                    b.Navigation("Book")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Books.Models.Domain.Publisher", b =>

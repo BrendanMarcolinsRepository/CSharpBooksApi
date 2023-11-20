@@ -61,6 +61,31 @@ namespace Books.Controllers
             return Ok(books);
         }
 
+
+        [HttpGet]
+        [Route("/popular")]
+        public async Task<IActionResult> GetPopularBooks()
+        {
+
+            var books = await bookService.GetPopularBooks();
+
+            if (books == null) return NotFound("No Books");
+
+            return Ok(books);
+        }
+
+
+        [HttpGet]
+        [Route("api/[controller]/recent")]
+        public async Task<IActionResult> GetRecentBooks()
+        {
+            var books = await bookService.GetRecentBooks();
+
+            if (books == null) return NotFound("No Books");
+
+            return Ok(books);
+        }
+
         [HttpGet]
         [Route("{id:Guid}")]
         //[Authorize(Roles = "Reader")]

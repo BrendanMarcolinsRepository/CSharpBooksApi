@@ -1,4 +1,5 @@
-﻿using Books.Data;
+﻿using AutoMapper.QueryableExtensions;
+using Books.Data;
 using Books.Models.Domain;
 using Microsoft.EntityFrameworkCore;
 using System.Diagnostics;
@@ -52,9 +53,31 @@ namespace Books.Reposistories.UserRepository
 
         }
 
-        public async Task<User> GetAUserByName(string name)
+        public async Task<User> GetAUserWithBookSpeficicBookName(Guid id, string name)
         {
-            throw new NotImplementedException();
+
+            var userBooksSpecific = await dbContext.Users
+                .Include(b => b.Books)
+                    .ThenInclude(a => a.Author)
+                .Include(b => b.Books)
+                    .ThenInclude(d => d.Difficulty)
+                .Include(b => b.Books)
+                    .ThenInclude(p => p.Publisher)
+                .Include(b => b.Books)
+                    .ThenInclude(g => g.Genre)
+                .Where(x => x.Id == id)
+                .Select(b => b.Books.
+                    Select(u => new User 
+                    { 
+                        Id = b.Id, 
+                        Username = b.Username, 
+                        Books = b.Books.Where(x => x.Name.Contains(name)).ToList() 
+
+                    })
+                    .First())
+                .FirstAsync();
+
+            return userBooksSpecific != null ? userBooksSpecific : null;
         }
 
         public async Task<User?> UpdateAUser(Guid id, User user)

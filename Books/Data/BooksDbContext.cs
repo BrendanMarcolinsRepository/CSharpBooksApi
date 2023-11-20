@@ -69,7 +69,8 @@ namespace Books.Data
                 new Genre(){Id = Guid.Parse("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"), Name = "Sci-Fi" },
             };
 
-          
+
+
 
 
             //seed Books
@@ -77,35 +78,37 @@ namespace Books.Data
             {
                 new Book()
                 {
-                    Id = Guid.Parse("ad241e9a-dc28-4a30-93e2-300402631654"), 
+                    Id = Guid.Parse("ad241e9a-dc28-4a30-93e2-300402631654"),
                     Name = "Snow Crash",
                     Description = "",
                     Pagecount = 576,
                     WordsPerPage = 400,
                     WordCount = 182234,
-                    BookCover = "",
+                    Release = new DateTime(1992, 07, 28, 00, 00, 00),
                     AuthorId = Guid.Parse("06580836-f2af-42c0-b5a7-479975ef1c9d"),
                     GenreId = Guid.Parse("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
                     PublisherId =  Guid.Parse("5104a982-9ee5-4cf8-b947-037a1728e427"),
                     DifficultyId = Guid.Parse("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
+                    ImageId =  Guid.Parse("9e3cb3b6-91ad-4326-9d80-b52e6e1a8cd2")
 
 
                 },
-                
-                
-                new Book() 
+
+
+                new Book()
                 {
                     Id = Guid.Parse("941e317b-77e5-4f7d-915f-beb98541e560"),
-                    Name = "Cryptonomicon", 
+                    Name = "Cryptonomicon",
                     Description = "",
                     Pagecount = 1152,
                     WordsPerPage = 400,
                     WordCount = 349056,
-                    BookCover = "",
+                    Release = new DateTime(1999, 07, 28, 00, 00, 00),
                     AuthorId = Guid.Parse("06580836-f2af-42c0-b5a7-479975ef1c9d"),
                     GenreId = Guid.Parse("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
                     PublisherId =  Guid.Parse("5104a982-9ee5-4cf8-b947-037a1728e427"),
                     DifficultyId = Guid.Parse("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
+                    ImageId = Guid.Parse("978dc6a0-fd94-4525-a0bf-3eece3b4ab75")
 
                 },
                 new Book() 
@@ -116,11 +119,12 @@ namespace Books.Data
                     Pagecount = 482,
                     WordsPerPage = 400,
                     WordCount = 163500,
-                    BookCover = "",
+                    Release = new DateTime(1989, 07, 28, 00, 00, 00),
                     AuthorId = Guid.Parse("302afacb-becd-4dfc-9186-5c7eaa93424b"),
                     GenreId = Guid.Parse("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
                     PublisherId =  Guid.Parse("5104a982-9ee5-4cf8-b947-037a1728e427"),
                     DifficultyId = Guid.Parse("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
+                    ImageId = Guid.Parse("c75e924b-dc4c-4115-9d91-2c50b8369551")
 
                 },
                 new Book() 
@@ -131,23 +135,80 @@ namespace Books.Data
                     Pagecount = 544,
                     WordsPerPage = 400,
                     WordCount = 169059,
-                    BookCover = "",
+                    Release = new DateTime(1989, 07, 28, 00, 00, 00),
                     AuthorId = Guid.Parse("302afacb-becd-4dfc-9186-5c7eaa93424b"),
                     GenreId = Guid.Parse("1ae27bf6-6b8e-4cfd-a23d-d16f232669e2"),
                     PublisherId =  Guid.Parse("5104a982-9ee5-4cf8-b947-037a1728e427"),
                     DifficultyId = Guid.Parse("166373b8-74e9-4b99-bd3d-e7dd77b1590b"),
+                    ImageId = Guid.Parse("06d7fc6b-4847-4f03-8c6b-790875025e0c"),
 
                 }
                 
             };
 
-           
+
+            var image = new List<Image>()
+            {
+                new Image()
+                {
+                    Id = Guid.Parse("9e3cb3b6-91ad-4326-9d80-b52e6e1a8cd2"),
+                    FileName = "cryptonomicon",
+                    FileDescription = "Cryptonomicon by Neil Stephenson",
+                    FileExtension = ".jpg",
+                    FileSizeInBytes = 12288,
+                    FilePath="D:/c#backend/Apidonet7/Books/Books/Images/cryptonomicon",
+                    
+
+                },
+
+                new Image()
+                {
+                    Id = Guid.Parse("978dc6a0-fd94-4525-a0bf-3eece3b4ab75"),
+                    FileName = "snowcrash",
+                    FileDescription = "Snow Crash by Neil Stephenson",
+                    FileExtension = ".jpg",
+                    FileSizeInBytes = 131072,
+                    FilePath="D:/c#backend/Apidonet7/Books/Books/Images/snowcrash",
+                   
+
+                },
+
+                new Image()
+                {
+                    Id = Guid.Parse("c75e924b-dc4c-4115-9d91-2c50b8369551"),
+                    FileName = "hyperion",
+                    FileDescription = "Hyperion by Dan Simmons",
+                    FileExtension = ".jpg",
+                    FileSizeInBytes = 131072,
+                    FilePath="D:/c#backend/Apidonet7/Books/Books/Images/hyperion",
+                    
+
+                },
+
+                new Image()
+                {
+                    Id = Guid.Parse("06d7fc6b-4847-4f03-8c6b-790875025e0c"),
+                    FileName = "thefallofhyperion",
+                    FileDescription = "The Fall of Hyperion by Dan Simmons",
+                    FileExtension = ".jpg",
+                    FileSizeInBytes = 131072,
+                    FilePath="D:/c#backend/Apidonet7/Books/Books/Images/thefallofhyperion",
+                   
+
+                }
+            };
+
 
             var users = new List<User>()
             {
                 new User()
                 {
-                    Id = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), Username = "m@gmail.com", Password = "Password123!", Roles = new string[] {"Writer"}
+                    Id = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), Username = "m@gmail.com", Password = "Password123!", Roles = new string[] {"Writer", "Reader" }
+                },
+
+                new User()
+                {
+                    Id = Guid.Parse("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30"), Username = "k@gmail.com", Password = "Password123!", Roles = new string[] {"Reader"}
                 }
             };
 
@@ -172,6 +233,11 @@ namespace Books.Data
                 new {
                     BooksId = Guid.Parse("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
                     UsersId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
+                },
+
+                new {
+                    BooksId = Guid.Parse("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
+                    UsersId = Guid.Parse("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30")
                 }
             };
 
@@ -231,17 +297,19 @@ namespace Books.Data
                }
            };
 
-            modelBuilder.Entity<Book>().HasOne(exp => exp.Author).WithMany(exp => exp.Books).HasForeignKey(exp => exp.AuthorId);
-            modelBuilder.Entity<Book>().HasOne(exp => exp.Difficulty).WithMany(exp => exp.Books).HasForeignKey(exp => exp.DifficultyId);
-            modelBuilder.Entity<Book>().HasOne(exp => exp.Publisher).WithMany(exp => exp.Books).HasForeignKey(exp => exp.PublisherId);
-            modelBuilder.Entity<Book>().HasOne(exp => exp.Genre).WithMany(exp => exp.Books).HasForeignKey(exp => exp.GenreId);
-            
+            modelBuilder.Entity<Book>().HasOne(exp => exp.Author).WithMany(exp => exp.Books).HasForeignKey(exp => exp.AuthorId).IsRequired();
+            modelBuilder.Entity<Book>().HasOne(exp => exp.Difficulty).WithMany(exp => exp.Books).HasForeignKey(exp => exp.DifficultyId).IsRequired();
+            modelBuilder.Entity<Book>().HasOne(exp => exp.Publisher).WithMany(exp => exp.Books).HasForeignKey(exp => exp.PublisherId).IsRequired(); 
+            modelBuilder.Entity<Book>().HasOne(exp => exp.Genre).WithMany(exp => exp.Books).HasForeignKey(exp => exp.GenreId).IsRequired(); 
+            modelBuilder.Entity<Book>().HasOne(exp => exp.Image).WithOne(exp => exp.Book).HasForeignKey<Book>(exp => exp.ImageId).IsRequired(); 
+
 
             modelBuilder.Entity<Publisher>().HasData(publisher);
             modelBuilder.Entity<Difficulty>().HasData(difficulties);
             modelBuilder.Entity<Author>().HasData(author);
             modelBuilder.Entity<Genre>().HasData(genre);
             modelBuilder.Entity<Book>().HasData(books);
+            modelBuilder.Entity<Image>().HasData(image);
             modelBuilder.Entity<User>().HasData(users);
             
 

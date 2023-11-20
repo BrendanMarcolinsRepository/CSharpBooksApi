@@ -1,5 +1,5 @@
 ﻿using Books.Models.Domain;
-using Books.Models.DTOs.ImageDto;
+
 
 namespace Books.Reposistories
 {

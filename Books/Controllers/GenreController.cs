@@ -1,5 +1,7 @@
-﻿using Books.Models.DTOs.DifficultiesDto;
+﻿using AutoMapper;
+using Books.Models.DTOs.DifficultiesDto;
 using Books.Models.DTOs.GenresDto;
+using Books.Reposistories.GenreRepository;
 using Books.Service.GenreService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -37,6 +39,25 @@ namespace Books.Controllers
 
             return genres != null ? Ok(genres) : NotFound("Error or No Genres Exist!");
 
+        }
+
+        [HttpGet]
+        [Route("book/{id:Guid}")]
+        //[Authorize(Roles = "Reader")]
+        public async Task<IActionResult> GetAGenreWithBooks(Guid id)
+        {
+            var genres = await genreService.GetAGenreWithBooks(id);
+
+            return genres != null ? Ok(genres) : NotFound("Error or No Genres Exist!");
+        }
+
+        [HttpGet]
+        [Route("favourite")]
+        public async Task<IActionResult> GetFavouriteGenres()
+        {
+            var genres = await genreService.GetFavouriteGenres();
+
+            return genres != null ? Ok(genres) : NotFound("Error or No Genres Exist!");
         }
 
         [HttpGet("{name}")]

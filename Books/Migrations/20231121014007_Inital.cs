@@ -204,6 +204,8 @@ namespace Books.Migrations
                     Name = table.Column<string>(type: "text", nullable: false),
                     Comment = table.Column<string>(type: "text", nullable: false),
                     rating = table.Column<int>(type: "integer", nullable: false),
+                    posted = table.Column<DateTime>(type: "DATE", nullable: false),
+                    updated = table.Column<DateTime>(type: "DATE", nullable: false),
                     BookId = table.Column<Guid>(type: "uuid", nullable: false),
                     UserId = table.Column<Guid>(type: "uuid", nullable: false)
                 },
@@ -297,8 +299,8 @@ namespace Books.Migrations
                 {
                     { new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") },
                     { new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") },
-                    { new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30") },
                     { new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") },
+                    { new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30") },
                     { new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5") }
                 });
 
@@ -307,7 +309,8 @@ namespace Books.Migrations
                 columns: new[] { "Id", "BookId", "UserId", "completed", "percentage", "timeleft" },
                 values: new object[,]
                 {
-                    { new Guid("8ea8c311-aaa9-4e1a-ac39-95d2bd989cc1"), new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), false, 50, 698 },
+                    { new Guid("304f4d53-5b7e-450f-8b5b-a675c1e0c72c"), new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30"), true, 100, 0 },
+                    { new Guid("8ea8c311-aaa9-4e1a-ac39-95d2bd989cc1"), new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), true, 100, 0 },
                     { new Guid("9738c657-a1f3-4e5c-8f5b-e9e8b9e5bd06"), new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), false, 25, 507 },
                     { new Guid("ad91f371-ce2f-432b-b001-572f493c4112"), new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), true, 100, 0 },
                     { new Guid("f4f791b9-4df7-4786-a247-4d2e69630eef"), new Guid("2a7ada53-e3f7-4154-8737-dfee6aff1b80"), new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), false, 75, 163 }
@@ -315,10 +318,15 @@ namespace Books.Migrations
 
             migrationBuilder.InsertData(
                 table: "Reviews",
-                columns: new[] { "Id", "BookId", "Comment", "Name", "UserId", "rating" },
-                values: new object[] { new Guid("fc859859-d1a9-495e-aac9-082b6e3f7989"), new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), "This book is amazing blah blah ", "Amazing book!!!", new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), 5 });
+                columns: new[] { "Id", "BookId", "Comment", "Name", "UserId", "posted", "rating", "updated" },
+                values: new object[,]
+                {
+                    { new Guid("0d6566e1-243b-4cce-8b6f-d8c484f1e61d"), new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), "This book is amazing blah blah ", "Amazing book!!!", new Guid("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30"), new DateTime(2021, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, new DateTime(2021, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { new Guid("f1aeb44c-77af-4e2d-8865-b3a18a1723c7"), new Guid("941e317b-77e5-4f7d-915f-beb98541e560"), "This book is amazing blah blah ", "Amazing book!!!", new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), new DateTime(2022, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, new DateTime(2022, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified) },
+                    { new Guid("fc859859-d1a9-495e-aac9-082b6e3f7989"), new Guid("ad241e9a-dc28-4a30-93e2-300402631654"), "This book is amazing blah blah ", "Amazing book!!!", new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"), new DateTime(2020, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified), 5, new DateTime(2020, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified) }
+                });
 
-            
+           
         }
 
         /// <inheritdoc />

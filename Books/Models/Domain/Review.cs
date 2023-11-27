@@ -1,4 +1,5 @@
-﻿using System.Text.Json.Serialization;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Books.Models.Domain
 {
@@ -11,6 +12,12 @@ namespace Books.Models.Domain
         public string Comment { get; set; }
 
         public int rating { get; set; }
+
+        [Column(TypeName = "DATE")]
+        public DateTime posted { get; set; }
+
+        [Column(TypeName = "DATE")]
+        public DateTime updated { get; set; }
 
         public Guid BookId { get; set; }
 

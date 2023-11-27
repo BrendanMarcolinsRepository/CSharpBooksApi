@@ -2,6 +2,7 @@
 using Books.Models.Domain;
 using Books.Models.DTOs;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Immutable;
 using System.Diagnostics;
 
 namespace Books.Reposistories
@@ -59,6 +60,28 @@ namespace Books.Reposistories
             return author;
            
         }
+
+
+        public async Task<List<Author>> GetAuthorsWithTopRatedBooks()
+        {
+            var author = await dbContext.Authors
+                .Include(a => a.Books)
+                .OrderByDescending(a => a.Books.Select(b => b.Reviews.Select(r => r.Comment)).Count())
+                .ToListAsync();
+                
+            return author;
+        }
+
+        public async Task<List<Author>> GetAuthorsWithMostRecentBooks()
+        {
+            var author = await dbContext.Authors
+                .Include(a => a.Books)
+                .OrderByDescending(a => a.Books.OrderByDescending(b => b.Release).First())
+                .ToListAsync();
+
+            return author;
+        }
+
 
         public async Task<Author?> GetAnAuthor(Guid id)
         {

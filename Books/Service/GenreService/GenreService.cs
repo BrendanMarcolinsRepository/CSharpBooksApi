@@ -64,6 +64,15 @@ namespace Books.Service.GenreService
             return generalDto;
         }
 
+        public async Task<List<GenreDto?>> GetAGenreWithBooks(Guid id)
+        {
+            var genres = await genreRepository.GetAGenreWithBooks(id);
+
+            var generalDto = mapper.Map<List<GenreDto>>(genres);
+
+            return generalDto;
+        }
+
         public async Task<List<GenreDto>> GetAllGenre()
         {
             var genres = await genreRepository.GetAllGenres();
@@ -73,6 +82,14 @@ namespace Books.Service.GenreService
             return generalDto;
         }
 
+        public async Task<List<GenreDto?>> GetFavouriteGenres()
+        {
+            var genres = await genreRepository.GetFavouriteGenres();
+
+            var generalDto = mapper.Map<List<GenreDto>>(genres);
+
+            return generalDto;
+        }
 
         public async Task<GenreDto?> UpdateAGenre(Guid id, AddDeleteUpdateGenreDto generalGenreDto)
         {

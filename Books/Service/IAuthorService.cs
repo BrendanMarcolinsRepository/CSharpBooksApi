@@ -7,6 +7,10 @@ namespace Books.Service
     {
         Task<List<AuthorDto>> GetAllAuthors();
 
+        Task<List<AuthorDto>?> GetAuthorsWithTopRatedBooks();
+
+        Task<List<AuthorDto>?> GetAuthorsWithMostRecentBooks();
+
         Task<AuthorDto?> GetAnAuthor(Guid id);
 
         Task<AuthorDto> GetAnAuthorByName(String name);

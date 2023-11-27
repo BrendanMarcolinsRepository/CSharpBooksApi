@@ -7,5 +7,9 @@ namespace Books.Reposistories.ReviewRepository
         Task<List<Review>> GetAllReviews();
 
         Task<Review?> GetAReview(Guid id);
+
+        Task<List<Review>> GetAllRecentReviews();
+
+        Task<List<Review>> GetAllPopularReviews();
     }
 }

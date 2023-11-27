@@ -16,6 +16,20 @@ namespace Books.Service.ReviewService
             this.mapper = mapper;
         }
 
+        public async Task<List<ReviewDto>> GetAllPopularReviews()
+        {
+            var reviews = await reviewRepository.GetAllPopularReviews();
+
+            return mapper.Map<List<ReviewDto>>(reviews) ?? null;
+        }
+
+        public async Task<List<ReviewDto>> GetAllRecentReviews()
+        {
+            var reviews = await reviewRepository.GetAllRecentReviews();
+
+            return mapper.Map<List<ReviewDto>>(reviews) ?? null;
+        }
+
         public async Task<List<ReviewDto>> GetAllReviews()
         {
             var reviews = await reviewRepository.GetAllReviews();

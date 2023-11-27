@@ -46,12 +46,31 @@ namespace Books.Controllers
             //Return DTOs
             return Ok(author);
 
-
-         
-
-
-
         }
+
+        [HttpGet]
+        [Route("TopBooks")]
+        public async Task<IActionResult> GetAuthorsWithTopRatedBooks()
+        {
+            var authors = await authorService.GetAuthorsWithTopRatedBooks();
+
+            if(authors.IsNullOrEmpty()) return NotFound();
+
+            return Ok(authors);
+        
+        }
+
+        [HttpGet]
+        [Route("RecentBooks")]
+        public async Task<IActionResult> GetAuthorsWithMostRecentBooks()
+        {
+            var authors = await authorService.GetAuthorsWithMostRecentBooks();
+
+            if(authors.IsNullOrEmpty()) return NotFound();
+
+            return Ok(authors);
+        }
+
         //(GET a Single Author by ID )
         [HttpGet]
         [Route("{id:Guid}")]

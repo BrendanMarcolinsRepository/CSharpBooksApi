@@ -8,6 +8,10 @@ namespace Books.Reposistories
     {
         Task<List<Author>> GetAllAuthors();
 
+        Task<List<Author>> GetAuthorsWithTopRatedBooks();
+
+        Task<List<Author>> GetAuthorsWithMostRecentBooks();
+
         Task<Author?> GetAnAuthor(Guid id);
 
         Task<Author> GetAnAuthorByName(String name);

@@ -1,4 +1,5 @@
-﻿using Books.Models.DTOs.DifficultiesDto;
+﻿using Books.Models.Domain;
+using Books.Models.DTOs.DifficultiesDto;
 using Books.Models.DTOs.GenresDto;
 
 namespace Books.Service.GenreService
@@ -17,5 +18,9 @@ namespace Books.Service.GenreService
         Task<GenreDto?> UpdateAGenre(Guid id, AddDeleteUpdateGenreDto generalGenreDto);
 
         Task<GenreDto?> DeleteAGenre(Guid id, AddDeleteUpdateGenreDto generalGenreDto);
+
+        Task<List<GenreDto?>> GetAGenreWithBooks(Guid id);
+
+        Task<List<GenreDto?>> GetFavouriteGenres();
     }
 }

@@ -1,4 +1,5 @@
 ﻿using Books.Models.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace Books.Reposistories.GenreRepository
 {
@@ -16,5 +17,10 @@ namespace Books.Reposistories.GenreRepository
         Task<Genre?> UpdateAGenre(Guid id, Genre genre);
 
         Task<Genre?> DeleteAGenre(Guid id, Genre genre);
+
+        Task<List<Genre?>> GetAGenreWithBooks(Guid id);
+
+        Task<List<Genre?>> GetFavouriteGenres();
+     
     }
 }

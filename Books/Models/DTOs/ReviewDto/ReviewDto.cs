@@ -1,4 +1,5 @@
 ﻿using Books.Models.Domain;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Books.Models.DTOs.ReviewDto
 {
@@ -11,6 +12,12 @@ namespace Books.Models.DTOs.ReviewDto
         public string Comment { get; set; }
 
         public int rating { get; set; }
+
+        [Column(TypeName = "DATE")]
+        public DateTime posted { get; set; }
+
+        [Column(TypeName = "DATE")]
+        public DateTime updated { get; set; }
 
         public Guid BookId { get; set; }
 

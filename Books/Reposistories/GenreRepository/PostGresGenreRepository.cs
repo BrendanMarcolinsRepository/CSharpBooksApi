@@ -56,6 +56,8 @@ namespace Books.Reposistories.GenreRepository
         {
             var genreId = await dbContext.Genres.FirstOrDefaultAsync(x => x.Id ==  id);
 
+     
+
             if (genreId == null)
             {
                 return null;
@@ -63,6 +65,45 @@ namespace Books.Reposistories.GenreRepository
 
 
             return genreId;
+
+        }
+
+        public async Task<List<Genre?>> GetAGenreWithBooks(Guid id)
+        {
+            
+
+            var genres = await dbContext.Genres
+             .Include(x => x.Books)
+             .Where(x => x.Id == id)
+             .ToListAsync();
+
+            if (genres == null)
+            {
+                return null;
+            }
+
+
+            return genres;
+
+        }
+
+        public async Task<List<Genre?>> GetFavouriteGenres()
+        {
+
+
+            var genres = await dbContext.Genres
+             .Include(x => x.Books)
+             .OrderByDescending(x => x.Books.Select(u => u.GenreId).Count())
+             .ToListAsync();
+           
+
+            if (genres == null)
+            {
+                return null;
+            }
+
+
+            return genres;
 
         }
 

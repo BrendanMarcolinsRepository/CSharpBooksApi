@@ -3,6 +3,7 @@ using Books.Controllers;
 using Books.Models.Domain;
 using Books.Models.DTOs.AuthorsDto;
 using Books.Reposistories;
+using Microsoft.IdentityModel.Tokens;
 using System.Text.Json;
 
 namespace Books.Service
@@ -85,6 +86,21 @@ namespace Books.Service
 
             return authorDto;
         }
+
+        public async Task<List<AuthorDto>?> GetAuthorsWithTopRatedBooks()
+        {
+            var authors = await authorRepository.GetAuthorsWithTopRatedBooks();
+
+            return !authors.IsNullOrEmpty() ? mapper.Map<List<AuthorDto>>(authors) : null;
+        }
+
+        public async Task<List<AuthorDto>?> GetAuthorsWithMostRecentBooks()
+        {
+            var authors = await authorRepository.GetAuthorsWithMostRecentBooks();
+
+            return !authors.IsNullOrEmpty() ? mapper.Map<List<AuthorDto>>(authors) : null;
+        }
+
 
         public async Task<AuthorDto?> UpdateAnAuthor(Guid id, AddAuthorDto author)
         {

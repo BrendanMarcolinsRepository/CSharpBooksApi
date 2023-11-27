@@ -63,7 +63,7 @@ namespace Books.Controllers
 
 
         [HttpGet]
-        [Route("/popular")]
+        [Route("popular")]
         public async Task<IActionResult> GetPopularBooks()
         {
 
@@ -76,7 +76,7 @@ namespace Books.Controllers
 
 
         [HttpGet]
-        [Route("api/[controller]/recent")]
+        [Route("recent")]
         public async Task<IActionResult> GetRecentBooks()
         {
             var books = await bookService.GetRecentBooks();

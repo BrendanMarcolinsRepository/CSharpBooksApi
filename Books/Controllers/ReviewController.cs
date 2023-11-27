@@ -34,6 +34,30 @@ namespace Books.Controllers
         }
 
         [HttpGet]
+        [Route("popular")]
+        //[Authorize(Roles = "Reader")]
+        public async Task<IActionResult> GetAllPopularReviews()
+        {
+            var reviews = await reviewService.GetAllPopularReviews();
+
+            if (reviews == null) return NotFound("No Books");
+
+            return Ok(reviews);
+        }
+
+        [HttpGet]
+        [Route("recent")]
+        //[Authorize(Roles = "Reader")]
+        public async Task<IActionResult> GetAllRecentReviews()
+        {
+            var reviews = await reviewService.GetAllRecentReviews();
+
+            if (reviews == null) return NotFound("No Books");
+
+            return Ok(reviews);
+        }
+
+        [HttpGet]
         [Route("{id:Guid}")]
         //[Authorize(Roles = "Reader")]
         public async Task<IActionResult> GetByReviewId([FromRoute] Guid id)

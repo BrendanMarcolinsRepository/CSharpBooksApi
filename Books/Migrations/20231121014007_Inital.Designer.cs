@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Books.Migrations
 {
     [DbContext(typeof(BooksDbContext))]
-    [Migration("20231120011250_Inital")]
+    [Migration("20231121014007_Inital")]
     partial class Inital
     {
         /// <inheritdoc />
@@ -62,7 +62,7 @@ namespace Books.Migrations
                         },
                         new
                         {
-                            BooksId = new Guid("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
+                            BooksId = new Guid("ad241e9a-dc28-4a30-93e2-300402631654"),
                             UsersId = new Guid("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30")
                         });
                 });
@@ -400,9 +400,9 @@ namespace Books.Migrations
                             Id = new Guid("8ea8c311-aaa9-4e1a-ac39-95d2bd989cc1"),
                             BookId = new Guid("941e317b-77e5-4f7d-915f-beb98541e560"),
                             UserId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"),
-                            completed = false,
-                            percentage = 50,
-                            timeleft = 698
+                            completed = true,
+                            percentage = 100,
+                            timeleft = 0
                         },
                         new
                         {
@@ -421,6 +421,15 @@ namespace Books.Migrations
                             completed = false,
                             percentage = 25,
                             timeleft = 507
+                        },
+                        new
+                        {
+                            Id = new Guid("304f4d53-5b7e-450f-8b5b-a675c1e0c72c"),
+                            BookId = new Guid("ad241e9a-dc28-4a30-93e2-300402631654"),
+                            UserId = new Guid("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30"),
+                            completed = true,
+                            percentage = 100,
+                            timeleft = 0
                         });
                 });
 
@@ -466,8 +475,14 @@ namespace Books.Migrations
                     b.Property<Guid>("UserId")
                         .HasColumnType("uuid");
 
+                    b.Property<DateTime>("posted")
+                        .HasColumnType("DATE");
+
                     b.Property<int>("rating")
                         .HasColumnType("integer");
+
+                    b.Property<DateTime>("updated")
+                        .HasColumnType("DATE");
 
                     b.HasKey("Id");
 
@@ -485,7 +500,31 @@ namespace Books.Migrations
                             Comment = "This book is amazing blah blah ",
                             Name = "Amazing book!!!",
                             UserId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"),
-                            rating = 5
+                            posted = new DateTime(2020, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            rating = 5,
+                            updated = new DateTime(2020, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("f1aeb44c-77af-4e2d-8865-b3a18a1723c7"),
+                            BookId = new Guid("941e317b-77e5-4f7d-915f-beb98541e560"),
+                            Comment = "This book is amazing blah blah ",
+                            Name = "Amazing book!!!",
+                            UserId = new Guid("442cd4f6-e1b1-420b-9fbf-a7160bd590d5"),
+                            posted = new DateTime(2022, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            rating = 5,
+                            updated = new DateTime(2022, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = new Guid("0d6566e1-243b-4cce-8b6f-d8c484f1e61d"),
+                            BookId = new Guid("ad241e9a-dc28-4a30-93e2-300402631654"),
+                            Comment = "This book is amazing blah blah ",
+                            Name = "Amazing book!!!",
+                            UserId = new Guid("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30"),
+                            posted = new DateTime(2021, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            rating = 5,
+                            updated = new DateTime(2021, 7, 28, 0, 0, 0, 0, DateTimeKind.Unspecified)
                         });
                 });
 

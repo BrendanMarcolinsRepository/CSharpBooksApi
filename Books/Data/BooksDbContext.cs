@@ -236,7 +236,7 @@ namespace Books.Data
                 },
 
                 new {
-                    BooksId = Guid.Parse("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
+                    BooksId = Guid.Parse("ad241e9a-dc28-4a30-93e2-300402631654"),
                     UsersId = Guid.Parse("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30")
                 }
             };
@@ -256,9 +256,9 @@ namespace Books.Data
                 new Progress()
                 {
                     Id = Guid.Parse("8ea8c311-aaa9-4e1a-ac39-95d2bd989cc1"),
-                    completed = false,
-                    percentage = 50,
-                    timeleft = 698,
+                    completed = true,
+                    percentage = 100,
+                    timeleft = 0,
                     BookId = Guid.Parse("941e317b-77e5-4f7d-915f-beb98541e560"),
                     UserId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
                 },
@@ -281,6 +281,16 @@ namespace Books.Data
                     timeleft = 507,
                     BookId = Guid.Parse("9c9e4237-bd98-4dda-8fb3-9e6ab9a75963"),
                     UserId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
+                },
+
+                new Progress()
+                {
+                    Id = Guid.Parse("304f4d53-5b7e-450f-8b5b-a675c1e0c72c"),
+                    completed = true,
+                    percentage = 100,
+                    timeleft = 0,
+                    BookId = Guid.Parse("ad241e9a-dc28-4a30-93e2-300402631654"),
+                    UserId = Guid.Parse("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30")
                 }
             }; 
 
@@ -292,9 +302,36 @@ namespace Books.Data
                    Name = "Amazing book!!!",
                    Comment = "This book is amazing blah blah ",
                    rating = 5,
+                   posted = new DateTime(2020, 07, 28, 00, 00, 00),
+                   updated = new DateTime(2020, 07, 28, 00, 00, 00),
                    BookId = Guid.Parse("ad241e9a-dc28-4a30-93e2-300402631654"),
                    UserId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
+               },
+
+                new Review()
+               {
+                   Id = Guid.Parse("f1aeb44c-77af-4e2d-8865-b3a18a1723c7"),
+                   Name = "Amazing book!!!",
+                   Comment = "This book is amazing blah blah ",
+                   rating = 5,
+                   posted = new DateTime(2022, 07, 28, 00, 00, 00),
+                   updated = new DateTime(2022, 07, 28, 00, 00, 00),
+                   BookId = Guid.Parse("941e317b-77e5-4f7d-915f-beb98541e560"),
+                   UserId = Guid.Parse("442cd4f6-e1b1-420b-9fbf-a7160bd590d5")
+               },
+                 new Review()
+               {
+                   Id = Guid.Parse("0d6566e1-243b-4cce-8b6f-d8c484f1e61d"),
+                   Name = "Amazing book!!!",
+                   Comment = "This book is amazing blah blah ",
+                   rating = 5,
+                   posted = new DateTime(2021, 07, 28, 00, 00, 00),
+                   updated = new DateTime(2021, 07, 28, 00, 00, 00),
+                   BookId = Guid.Parse("ad241e9a-dc28-4a30-93e2-300402631654"),
+                   UserId = Guid.Parse("0c03fc1b-8fd4-44f1-bc0a-0dfdd74e5f30")
                }
+
+
            };
 
             modelBuilder.Entity<Book>().HasOne(exp => exp.Author).WithMany(exp => exp.Books).HasForeignKey(exp => exp.AuthorId).IsRequired();
@@ -326,8 +363,8 @@ namespace Books.Data
 
             modelBuilder.Entity<Progress>().HasData(progress);
 
-            modelBuilder.Entity<Review>().HasOne(x => x.Book).WithMany(x => x.Reviews).HasForeignKey(x => x.BookId);
-            modelBuilder.Entity<Review>().HasOne(x => x.User).WithMany(x => x.Reviews).HasForeignKey(x => x.UserId);
+            modelBuilder.Entity<Book>().HasMany(x => x.Reviews).WithOne(x => x.Book).HasForeignKey(x => x.BookId);
+            modelBuilder.Entity<User>().HasMany(x => x.Reviews).WithOne(x => x.User).HasForeignKey(x => x.UserId);
 
 
 
